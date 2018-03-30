@@ -8,6 +8,7 @@ public class SurfaceCreatorInspector : Editor {
 
 	private void OnEnable(){
 		creator = target as SurfaceCreator;
+		creator.Init();
 		Undo.undoRedoPerformed += RefreshCreator;
 	}
 
@@ -16,9 +17,9 @@ public class SurfaceCreatorInspector : Editor {
 	}
 
 	private void RefreshCreator(){
-		if(Application.isPlaying){
+		//if(Application.isPlaying){
 			creator.Refresh();
-		}
+		//}
 	}
 
 	public override void OnInspectorGUI(){
