@@ -16,7 +16,7 @@ public class SurfaceCreatorInspector : Editor {
 	}
 
 	private void RefreshCreator () {
-		if (Application.isPlaying) {
+		if (Application.isPlaying || creator.simulateInEditor) {
 			creator.Refresh();
 		}
 	}

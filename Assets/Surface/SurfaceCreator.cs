@@ -37,6 +37,10 @@ public class SurfaceCreator : MonoBehaviour {
 	public bool analyticalDerivatives;
 	public bool showNormals;
 
+#if UNITY_EDITOR
+	public bool simulateInEditor;
+#endif
+
 	private Mesh mesh;
 	private Vector3[] vertices;
 	private Vector3[] normals;
@@ -45,15 +49,24 @@ public class SurfaceCreator : MonoBehaviour {
 	private int currentResolution;
 
 	private void OnEnable () {
+		Init();
+		Refresh();
+	}
+
+	private void Init(){
 		if (mesh == null) {
 			mesh = new Mesh();
 			mesh.name = "Surface Mesh";
 			GetComponent<MeshFilter>().mesh = mesh;
 		}
-		Refresh();
 	}
 
 	public void Refresh () {
+#if UNITY_EDITOR
+		if(mesh==null && simulateInEditor){
+			Init();
+		}
+#endif
 		if (resolution != currentResolution) {
 			CreateGrid();
 		}
