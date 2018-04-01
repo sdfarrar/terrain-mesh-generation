@@ -1,33 +1,31 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(SurfaceCreator))]
 public class SurfaceCreatorInspector : Editor {
 
 	private SurfaceCreator creator;
 
-	private void OnEnable(){
+	private void OnEnable () {
 		creator = target as SurfaceCreator;
-		creator.Init();
 		Undo.undoRedoPerformed += RefreshCreator;
 	}
 
-	private void OnDisable(){
+	private void OnDisable () {
 		Undo.undoRedoPerformed -= RefreshCreator;
 	}
 
-	private void RefreshCreator(){
-		//if(Application.isPlaying){
+	private void RefreshCreator () {
+		if (Application.isPlaying) {
 			creator.Refresh();
-		//}
-	}
-
-	public override void OnInspectorGUI(){
-		EditorGUI.BeginChangeCheck();
-		DrawDefaultInspector();
-		if(EditorGUI.EndChangeCheck()){
-			RefreshCreator();
 		}
 	}
 
+	public override void OnInspectorGUI () {
+		EditorGUI.BeginChangeCheck();
+		DrawDefaultInspector();
+		if (EditorGUI.EndChangeCheck()) {
+			RefreshCreator();
+		}
+	}
 }
